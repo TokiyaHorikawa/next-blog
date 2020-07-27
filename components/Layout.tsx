@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-import HeaderAppBar from "./HeaderAppBar";
+import HeaderAppBar from './HeaderAppBar'
+
 
 type Props = {
   children?: ReactNode
