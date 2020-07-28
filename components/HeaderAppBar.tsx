@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import clsx from "clsx";
 import { createStyles, makeStyles, useTheme, Theme } from "@material-ui/core/styles";
 import {
@@ -66,6 +67,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const sidebarList = [
+  { text: "Home", icon: "InboxIcon", link: "/" },
+  { text: "About", icon: "MailIcon", link: "/about" },
+  { text: "Users List", icon: "InboxIcon", link: "/api/users" },
+];
+
+const convertIcon = (iconName: string) => {
+  switch (iconName) {
+    case 'InboxIcon':
+      return <InboxIcon />
+    case 'MailIcon':
+      return <MailIcon />
+  }
+}
+
 const HeaderAppBar = () => {
   const classes = useStyles();
   const theme = useTheme();
@@ -119,24 +135,15 @@ const HeaderAppBar = () => {
         </div>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {sidebarList.map((obj) => (
+            <Link href={obj.link}>
+              <ListItem button key={obj.text}>
+                <ListItemIcon>
+                  {convertIcon(obj.icon)}
+                </ListItemIcon>
+                <ListItemText primary={obj.text} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
